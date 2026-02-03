@@ -1,0 +1,50 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert
+
+
+block main
+  +alert-error(5000)
+  +alert-success(5000)
+  .container-fluid.mt-4
+    h3.mb-4
+      i.fas.fa-users.mr-2
+      | Danh sách Admin 
+
+    .card.shadow-sm
+      .card-body
+        table.table.table-bordered.table-hover.table-striped
+          thead.thead-dark
+            tr
+              th(style="width: 5%") #
+              th Full Name
+              th Email
+              th Phone
+              th Password
+          tbody
+            if users.length
+              each user, index in users
+                tr
+                  td #{index + 1}
+                  td #{user.fullName}
+                  td #{user.email}
+                  td #{user.phone}
+                  td.text-monospace #{user.password}
+            else
+              tr
+                td(colspan="6").text-center.text-muted
+                  | Không có người dùng nào
+
+
+    form(
+        action="" 
+        method="POST"
+        id="form-change-status"
+        data-part="/admin/accounts/change-status"
+    )
+    
+    form(
+        action="" 
+        method="POST"
+        id="form-delete-account"
+        data-part="/admin/accounts/delete"
+    )

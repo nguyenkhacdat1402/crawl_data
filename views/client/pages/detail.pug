@@ -1,0 +1,64 @@
+doctype html
+html(lang='vi')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title So sánh sản phẩm - FPT Shop vs CellphoneS
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css')
+    link(rel="stylesheet", href="client/css/style.css")
+  body
+    .store-header
+      .container
+        h1.text-center
+          | So sánh sản phẩm
+        p.text-center.mb-0 FPT Shop vs CellphoneS
+    
+    .container
+      .row
+        //- FPT Shop
+        .col-md-6
+          .store-card
+            h2.store-title.fpt-title
+              | FPT Shop
+            .form-group
+              label(for='fpt-product') Chọn sản phẩm:
+              select#fpt-product.product-select
+                option(value='', disabled, selected) -- Chọn sản phẩm --
+                each item in productsFpt
+                  option(value=item.id, data-id-fpt=item.id) #{item.name}
+        
+        //- CellphoneS
+        .col-md-6
+          .store-card
+            h2.store-title.cellphones-title
+              | CellphoneS
+            .form-group
+              label(for='cellphones-product') Chọn sản phẩm:
+              select#cellphones-product.product-select
+                option(value='', disabled, selected) -- Chọn sản phẩm --
+                each item in productsCellphoneS
+                  option(value=item._id, data-id-cellphones=item._id) #{item.name}
+
+      
+      //- Compare Button
+      .row.mt-4.mb-4
+        .col-12.text-center
+          button#compare-btn.compare-btn
+              i.fas.fa-sync-alt.mr-2
+              | So sánh ngay
+        .col-md-6
+          #fpt-result.product-info
+            .no-product
+              i.fas.fa-box-open.fa-3x.mb-3
+              p Vui lòng chọn sản phẩm từ FPT Shop
+        
+        .col-md-6
+          #cellphones-result.product-info
+            .no-product
+              i.fas.fa-box-open.fa-3x.mb-3
+              p Vui lòng chọn sản phẩm từ CellphoneS
+
+    script(src='https://code.jquery.com/jquery-3.5.1.min.js')
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js')
+    script(src="client/js/script.js") 

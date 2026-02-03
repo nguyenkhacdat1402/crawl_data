@@ -1,0 +1,25 @@
+extends ../../layouts/default.pug
+
+block main
+  
+  body.bg-light
+      .container.mt-5
+        h3.mb-4  Admin Crawl Dashboard
+
+        .card
+          .card-body
+            p.mb-3 Chọn website để cào dữ liệu:
+
+            button.btn.btn-danger.mr-2(
+              onclick="crawl('cellphones')"
+            ) Crawl Cellphones
+
+            button.btn.btn-primary(
+              onclick="crawl('fptshop')"
+            ) Crawl FPT Shop
+
+        .card.mt-4
+          .card-body
+            h6 Kết quả
+            pre#log.text-muted.mb-0 Chưa có tác vụ nào
+
