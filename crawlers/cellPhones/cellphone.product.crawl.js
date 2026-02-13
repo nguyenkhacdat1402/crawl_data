@@ -13,7 +13,7 @@ module.exports.detailCellPhone = async () => {
 
     const results = []
 
-    for (const link of links.slice(0, 10)) {
+    for (const link of links) {
         await page.goto(link);
 
         const data = await page.evaluate(() => {

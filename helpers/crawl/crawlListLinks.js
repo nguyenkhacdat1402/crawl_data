@@ -5,7 +5,7 @@ module.exports.scrapeLink = async (url, clickShowMore, getLink) => {
     const page = await browser.newPage();
     await page.goto(url);
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 30; i++) {
       const btn = await page.$(clickShowMore);
       if (!btn) break;
 

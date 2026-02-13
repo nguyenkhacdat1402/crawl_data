@@ -13,7 +13,7 @@ module.exports.detailFpt = async () => {
 
     const results = []
 
-    for (const link of links.slice(0, 10)) {
+    for (const link of links) {
         await page.goto(link);
 
         const btn = await page.$("span.text-textOnWhiteBrand.b2-medium");
