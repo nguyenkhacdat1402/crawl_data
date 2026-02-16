@@ -3,7 +3,7 @@ const puppeteer = require("puppeteer");
 
 module.exports.detailFpt = async () => {
     const links = await scrapeLinks.scrapeLink(  
-        "https://fptshop.com.vn/dien-thoai/apple-iphone",
+        "https://fptshop.com.vn/dien-thoai",
         "button.Button_root__LQsbl.Button_btnSmall__aXxTy.Button_whitePrimary__nkoMI.Button_btnIconRight__4VSUO",
         'div.relative.flex.items-center.justify-between a.flex-1[href]'
     )

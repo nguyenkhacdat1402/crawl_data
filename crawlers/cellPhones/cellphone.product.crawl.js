@@ -3,7 +3,7 @@ const puppeteer = require("puppeteer");
 
 module.exports.detailCellPhone = async () => {
     const links = await scrapeLinks.scrapeLink(  
-        "https://cellphones.com.vn/mobile/apple.html",
+        "https://cellphones.com.vn/mobile.html",
         "a.btn-show-more.button__show-more-product",
         "a.product__link.button__link[href]"
     )
