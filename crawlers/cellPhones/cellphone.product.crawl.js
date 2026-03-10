@@ -19,7 +19,7 @@ module.exports.detailCellPhone = async () => {
         const data = await page.evaluate(() => {
             let name = document.querySelector(".box-product-name h1")?.textContent;
             let start = document.querySelector(".box-rating span")?.textContent;
-            let totalRating = document.querySelector(".box-rating span.total-rating")?.textContent;
+            let totalRating = document.querySelector(".box-rating span.total-rating")?.textContent.replace(/[()]/g, "");
             let basePrice = document.querySelector(".base-price")?.textContent;
             let newPrice = document.querySelector(".sale-price")?.textContent.trim();
 

@@ -18,41 +18,10 @@ function renderStars(rating) {
 
   return html;
 }
-function renderCompareSpecsByIndexMap(productCellphones, productFpt) {
-  const tbody = document.querySelector("#compare-specs-body");
 
-  let html = "";
-  const SPEC_INDEX_MAP = [
-    { label: "Kích thước màn hình", cellphones: 12, fpt: 1 },
-    { label: "Chipset", cellphones: 6, fpt: 5 },
-    { label: "RAM", cellphones: 10, fpt: 8 },
-    { label: "Bộ nhớ trong", cellphones: 11, fpt: 9 },
-  ];
-  SPEC_INDEX_MAP.forEach((item) => {
-    const cellSpec = productCellphones.specs[item.cellphones];
-    const fptSpec = productFpt.specs[item.fpt];
-
-    const valueCell = cellSpec?.value || "-";
-    const valueFpt = fptSpec?.value || "-";
-
-    const isDiff = valueCell !== valueFpt && valueCell !== "-" && valueFpt !== "-";
-
-    html += `
-      <tr class="${isDiff ? "diff" : ""}">
-        <td class="spec-label">${item.label}</td>
-        <td>${valueCell}</td>
-        <td>${valueFpt}</td>
-      </tr>
-    `;
-  });
-
-  tbody.innerHTML = html;
-}
-
-
-function renderProduct({ productCellphones, productFpt }) {
-  renderSingleProduct(productCellphones, "cellphones-result");
-  renderSingleProduct(productFpt, "fpt-result");
+function renderProduct({ product1, product2 }) {
+  renderSingleProduct(product1, "result-1");
+  renderSingleProduct(product2, "result-2");
 }
 
 function renderSingleProduct(product, containerId) {
@@ -69,7 +38,6 @@ function renderSingleProduct(product, containerId) {
   }
 
   let specsHtml = "";
-
   product.specs.forEach((spec) => {
     specsHtml += `
       <tr>
@@ -79,7 +47,6 @@ function renderSingleProduct(product, containerId) {
     `;
   });
 
-
   container.html(`
     <a href="${product.link}" target="_blank" class="product-name">${product.name}</a>
     <div class="product-price new-price">${product.newPrice}</div>
@@ -87,6 +54,7 @@ function renderSingleProduct(product, containerId) {
 
     <div class="rating-section">
       <span class="stars">${renderStars(product.start)}</span>
+      <span class="stars">${product.start}</span>
       <span class="review-count">
         (${product.totalRating})
       </span>
@@ -107,48 +75,44 @@ function renderSingleProduct(product, containerId) {
   `);
 }
 
-
-
-
-const buttonCompare = document.querySelector("#compare-btn");
-const selectCellphones = document.querySelector("#cellphones-product");
-const selectFpt = document.querySelector("#fpt-product");
+const buttonCompare = document.querySelector(
+  "#compare-btn.compare-btn.cellphones-compare-btn",
+);
+const selecProduct1 = document.querySelector("#cellphones-product-1.product-select");
+const selecProduct2 = document.querySelector("#cellphones-product-2.product-select");
 
 if (buttonCompare) {
   buttonCompare.addEventListener("click", () => {
-    const optionCellphones = selectCellphones.selectedOptions[0];
-    const optionFpt = selectFpt.selectedOptions[0];
 
-    if (!optionCellphones.value || !optionFpt.value) {
+    const optionProduct1 = selecProduct1.selectedOptions[0];
+    const optionProduct2 = selecProduct2.selectedOptions[0];
+
+    if (!optionProduct1.value || !optionProduct2.value) {
       alert("Vui lòng chọn đủ 2 sản phẩm hợp lệ");
       return;
     }
 
-    const idProductCellphoneS = optionCellphones.value;
-    const idProductFpt = optionFpt.value;
-    fetch("/compare", {
+    const product1 = optionProduct1.value;
+    const product2 = optionProduct2.value;
+
+    fetch("/compare/cellphones", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        idProductCellphoneS: idProductCellphoneS,
-        idProductFpt: idProductFpt,
+        product1: product1,
+        product2: product2,
       }),
     })
       .then((res) => res.json())
       .then((result) => {
         if (result.code !== 200) {
-          alert("Có lỗi xảy ra")
+          alert("Có lỗi xảy ra");
           return;
         }
 
-        renderProduct(result.data)
-
-        renderCompareSpecsByIndexMap(
-          result.data.productCellphones,
-          result.data.productFpt
-        )
+        renderProduct(result.data);
       });
   });
 }

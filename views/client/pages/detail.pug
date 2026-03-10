@@ -13,7 +13,27 @@ html(lang='vi')
         h1.text-center
           | So sánh sản phẩm
         p.text-center.mb-0 FPT Shop vs CellphoneS
-    
+    .container.mt-4.mb-5
+      .row.justify-content-center
+        .col-md-5.mb-3
+          a(href='/compare/fptshop').store-nav-link.fpt-nav
+            .store-nav-content
+              .store-nav-icon
+                i.fas.fa-laptop
+              .store-nav-text
+                span.store-nav-name FPT Shop
+                span.store-nav-desc So sánh sản phẩm FPT Shop
+              i.fas.fa-chevron-right.store-nav-arrow
+
+        .col-md-5.mb-3
+          a(href='/compare/cellphones').store-nav-link.cellphones-nav
+            .store-nav-content
+              .store-nav-icon
+                i.fas.fa-mobile-alt
+              .store-nav-text
+                span.store-nav-name CellphoneS
+                span.store-nav-desc So sánh sản phẩm CellphoneS
+              i.fas.fa-chevron-right.store-nav-arrow
     .container
       .row
         //- FPT Shop
@@ -27,7 +47,6 @@ html(lang='vi')
                 option(value='', disabled, selected) -- Chọn sản phẩm --
                 each item in productsFpt
                   option(value=item.id, data-id-fpt=item.id) #{item.name}
-        
         //- CellphoneS
         .col-md-6
           .store-card
